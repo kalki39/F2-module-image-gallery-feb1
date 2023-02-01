@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+
+* {
+  font-family: Poppins sans-serif;
+  background-color: rgb(104, 255, 84);
+
+}
+
+body {
+  text-align: center;
+  width: 80%;
+  margin: 5px auto;
+
+}
+
+.hide{
+  display: none;
+}
+/* .img1 {
+    content: url("https://picsum.photos/id/237/200/300");
+  }
+  
+  .img2 {
+    content: url("https://picsum.photos/seed/picsum/200/300");
+  }
+  
+  .img3 {
+    content: url("https://picsum.photos/200/300?grayscale");
+  }
+  .img4 {
+    content: url("https://picsum.photos/200/300/");
+  }
+   */
+
+.flex img {
+  margin: 10px;
+  border: 5px solid #555;
+  width: 15%;
+  height: 100px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.selected {
+  border: 5px solid rgb(0, 195, 255) !important;
+}
+
+p {
+  text-align: center;
+}
+
+button {
+  margin: 20px;
+}
+
+.dice{
+  display: none;
+}
+.dice img {
+  margin: 10px;
+  /* width: 20%; */
+  height: 100px;
+}
+
+.signup {
+
+  width: 70%;
+  padding: 20px;
+  background: #FFFFFF;
+  margin: 5px auto;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.22);
+  display: none;
+
+}
+
+.signup input[type="text"],
+.signup input[type="email"]
+{
+box-sizing: border-box;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+outline: none;
+display: block;
+width: 100%;
+padding: 7px;
+border: none;
+border-bottom: 1px solid #ddd;
+background: transparent;
+margin-bottom: 10px;
+/* font: 16px Arial, Helvetica, sans-serif; */
+height: 45px;
+font-size: 20px;
+}
+
+
+.signup  h3{
+	background: #3ddda0;
+	text-transform: uppercase;
+	font-family: 'Open Sans Condensed', sans-serif;
+	color: #9b1010;
+	font-size: 18px;
+	font-weight: 600;
+	padding: 20px;
+	margin: -20px -20px 20px -20px;
+}
+
+.signup input[type="submit"]{
+	-moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
+	box-shadow: inset 0px 1px 0px 0px #45D6D6;
+	background-color: #2CBBBB;
+	border: 1px solid #27A0A0;
+	display: inline-block;
+	cursor: pointer;
+	color: #FFFFFF;
+	font-size: 14px;
+	padding: 8px 18px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.n1, .n2{
+  
+  font-weight: 700;
+  color: rgb(16, 8, 73);
+}
+
+.nametittle{
+  display: flex;
+  /* border: 2px solid #db411b; */
+  min-width: 240px;
+  max-width: 685px;
+  margin: 5px auto;
+  justify-content: space-between;
+  padding: 5px;
+  
+}
+
+header h2{
+  color: rgb(201, 17, 17);
+  text-shadow: 2px 0px whitesmoke;
+}

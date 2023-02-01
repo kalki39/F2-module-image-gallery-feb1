@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>SignUp</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <h2>IMAGE GALLERY</h2>
+        <div class="nametittle">
+            <div class="n1"></div>
+            <div class="n2"></div>
+        </div>
+    </header>
+    <div class="flex">
+        <img src="https://picsum.photos/id/237/200/300" alt="" class="img img1">
+        <img src="https://picsum.photos/seed/picsum/200/300" alt="" class="img img2">
+        <img src="https://picsum.photos/200/300?grayscale" alt="" class="img img3">
+        <img src="https://picsum.photos/200/300/" alt="" class="img img4">
+    </div>
+    <p class="error"></p>
+    <form class="signup ">
+        
+
+            <h3>Signup Form</h3>
+            
+            <input type="text" name="name" id="name" placeholder="Enter your name">
+            <br>
+            
+            <input type="email" name="email" id="email" placeholder="Enter your Email">
+            <br>
+            
+            <input type="text" name="username" id="username" placeholder="Enter your User name">
+            <br>
+            <input type="submit">
+
+        
+    </form>
+
+    <div class="dice">
+        <p id="clickmsg">CLICK THE DICE, YOU CAN ROLL 3 TIMES <br>SCORE ABOVE 10 TO GET A COUPEN </p>
+        
+        <img src="/images/dice1.png" alt="dice1" id="check1">
+    </div>
+    <p class="result"></p>
+    <img class="congrats"></img>
+
+
+    <script>
+
+
+        let signup_form = document.querySelector('.signup');
+
+        let input_name = document.querySelector('#name');
+        let input_email = document.querySelector('#email');
+        let input_uname = document.querySelector('#username');
+        let error = document.querySelector('.error');
+        let result = document.querySelector('.result');
+        let dice = document.getElementById('check1');
+        let congrats=document.getElementById('.congrats');
+        let img1 = document.querySelector('.img1');
+        let img2 = document.querySelector('.img2');
+        let img3 = document.querySelector('.img3');
+        let img4 = document.querySelector('.img4');
+        let n1 = document.querySelector('.n1');
+        let n2 = document.querySelector('.n2');
+
+
+        img1.ariaDisabled=true
+
+
+        let arr = []
+        let id = 1
+        let name
+        let email
+        let username
+        let data
+
+
+        function checkUserName(username) {
+            for (t of arr) {
+                if (t.username == username) {
+                    return false
+                }
+            }
+            return true
+        }
+
+
+        // dice function
+        let arr1;
+        let class1
+        let flag = 0
+        // let class3=img3.classList;
+        let sum = 0;
+        let count = 0;
+        img1.addEventListener('click', () => {      //img1 check
+            img1.classList.add("class", "selected")
+            // signup_form.removeAttribute('class','hide')
+            signup_form.style.display="block"
+            class1 = img1.classList.contains('selected')
+            signup_form.addEventListener('submit', validateForm)
+            function validateForm(e) {
+                e.preventDefault();
+                name = input_name.value;
+                email = input_email.value;
+                username = input_uname.value;
+
+                if (email.indexOf('@') == -1) {
+                    error.innerHTML = 'Email must contain @';
+                }
+
+                else if (checkUserName(username) == false) {
+                    error.innerHTML = 'User name already exists';
+                }
+                else {
+                    error.innerHTML = 'Form Submitted Successfully';
+
+                    let obj = { id: id++, name, email, username }
+                    arr.push(obj)
+                    // console.log(arr)
+                    localStorage.setItem("names", JSON.stringify(name))
+                    localStorage.setItem("usernames", JSON.stringify(username))
+                    input_name.value = '';
+                    input_email.value = '';
+                    input_uname.value = '';
+                    // local stroage
+                    localStorage.setItem("data", JSON.stringify(arr))
+                    // window.location.href = "/login.html"
+                    signup_form.style.display="none"
+
+                }
+
+
+                if (arr[0] != undefined) {
+                    console.log("poooooo")
+                }
+
+                if (class1 && arr[0] != undefined) {       //img2 check
+                    console.log(class1)
+                    img2.addEventListener('click', () => {
+                        error.innerHTML = ""
+                        img2.classList.add("class", "selected")
+                        class2 = img2.classList;
+                        name=name.toUpperCase()
+                        n1.innerText = `NAME: ${name}`
+                        n2.innerHTML = `USER NAME: ${username}`
+
+                        if (img2.classList.contains('selected') && flag<2) {
+                            img3.addEventListener('click', () => {
+                                img3.classList.add("class", "selected")
+                                result.innerHTML =""
+                                // console.log(class2)
+                                if(flag<2){
+                                    document.querySelector('.dice').style.display = "block";
+                                    
+                                }else{
+                                    img3.classList.remove("class", "selected")
+                                }
+
+
+                                if (count < 4 && img3.classList.contains('selected')) {
+                                    dice.addEventListener('click', diceroll)
+                                    function diceroll() {
+                                        const play1 = Math.floor(Math.random() * 6) + 1;
+                                        const play1dice = `images/dice${play1}.png`;
+                                        sum += play1;
+                                        document.getElementById('check1').setAttribute('src', play1dice);
+                                        console.log(sum)
+                                        console.log(count)
+                                        count++;
+                                        if (count >= 3) {
+                                            if (sum <= 10) {
+                                                result.innerHTML = `Your score is ${sum}. You have only one chance! Click 3rd image and Try again. <br> `
+                                                img3.classList.remove("class", "selected")
+                                                dice.removeEventListener('click', diceroll)
+                                                
+                                                count = 0;
+                                                flag++;
+                                                if (flag == 2) {
+                                                    result.innerHTML = `"Bad luck!". Your score is ${sum}, You have 0 chance! <br> `
+                                                    document.querySelector('.dice').style.display = "none";
+                                                    document.getElementById('clickmsg').setAttribute('class', 'hide')
+
+                                                }
+                                                sum = 0;
+                                            }
+                                            else {
+                                                result.innerHTML = `Congratulation! Your score is ${sum} Click last image to get a coupon`
+                                                document.getElementById('check1').setAttribute('class', 'hide')
+                                                document.getElementById('clickmsg').setAttribute('class', 'hide')
+                                                sum = 0;
+
+                                                if (img3.classList.contains('selected')) {  //4th image check
+                                                    img4.addEventListener('click', () => {
+                                                        img4.classList.add("class", "selected")
+                                                        
+                                                        let token = generateToken();
+                                                        result.innerHTML = `Congratulation! Your coupon code is ${token} `
+                                                        let x = "images/congrats.png"
+                                                        let img=document.createElement('img')
+                                                        img.setAttribute('src', x);
+                                                        document.body.appendChild(img)
+                                                        
+
+                                                        img4.removeEventListener("click")
+                                                    },{once : true})      //it allow only one time to click img4
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                            })
+                        }
+
+                    })
+                }
+
+            }
+
+
+
+
+        },{once: true})
+
+
+
+
+
+
+
+
+
+
+
+        // token generate
+        function generateToken() {
+            let capital_digit = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            // let small_digit = "abcdefghijklmnopqrstuvwxyz"
+            // let number = "0123456789"
+            // let special = "!@#$%^&*()_+"
+
+            // let characters = capital_digit + small_digit + number + special
+
+            let token = ""
+            for (let i = 0; i < 12; i++) {
+                let random = Math.floor(Math.random() * capital_digit.length) // 4
+                token = token + capital_digit[random]
+            }
+            return token //  store the token in the perosn object who logged in
+        }
+
+
+        function generateToken1() {
+            //   let token = crypto.randomUUID() // extract 10 charcaters from it
+        }
+
+
+
+    </script>
+</body>
+
+</html>
